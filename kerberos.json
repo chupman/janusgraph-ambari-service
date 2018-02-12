@@ -1,0 +1,52 @@
+{
+  "services": [
+    {
+      "name": "JANUSGRAPH",
+      "components": [
+        {
+          "name": "JANUSGRAPH_SERVER",
+          "identities": [
+            {
+              "name": "janusgraph_principal",
+              "principal": {
+                "value": "${janusgraph-env/janusgraph_user}/_HOST@${realm}",
+                "type" : "service",
+                "configuration": "janusgraph-env/janusgraph_principal_name",
+                "local_username": "${janusgraph-env/janusgraph_user}"
+
+              },
+              "keytab": {
+                "file": "${keytab_dir}/janusgraph.service.keytab",
+                "owner": {
+                  "name": "${janusgraph-env/janusgraph_user}",
+                  "access": "r"
+                },
+                "group": {
+                  "name": "${cluster-env/user_group}",
+                  "access": ""
+                },
+                "configuration": "janusgraph-env/janusgraph_keytab_path"
+              }
+            }
+          ]
+        },
+        {
+          "name": "JANUSGRAPH_CLIENT",
+          "identities": [
+            {
+              "name": "/HDFS/NAMENODE/hdfs"
+            }
+          ]
+        }
+      ],
+      "configurations": [
+        {
+          "core-site": {
+            "hadoop.proxyuser.janusgraph.groups": "${hadoop-env/proxyuser_group}",
+            "hadoop.proxyuser.janusgraph.hosts": "*"
+          }
+        }
+      ]
+    }
+  ]
+}

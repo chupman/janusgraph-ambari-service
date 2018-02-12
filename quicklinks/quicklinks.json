@@ -1,0 +1,33 @@
+{                                                                                                          
+  "name": "default",                                                                                       
+  "description": "default quick links configuration",                                                      
+  "configuration": {                                                                                       
+    "protocol": {                                                                                          
+      "type": "https",                                                                                     
+      "checks": [                                                                                          
+        {                                                                                                  
+          "property": "janusgraph_ssl_enable",                                                                   
+          "desired": "true",                                                                               
+          "site": "janusgraph-ssl"                                                                               
+        }                                                                                                  
+      ]                                                                                                    
+    },                                                                                                     
+    "links": [                                                                                             
+      {                                                                                                    
+        "name": "janusgraph_ui",                                                                                 
+        "label": "JanusGraph UI",                                                                                
+        "component_name": "JANUSGRAPH_SERVER",                                                                   
+        "url": "%@://%@:%@/janusgraph",                                                                          
+        "requires_user_name": "false",                                                                     
+        "port": {                                                                                          
+          "http_property": "janusgraph_config_port",                                                             
+          "http_default_port": "8182",                                                                     
+          "https_property": "janusgraph_config_port",                                                            
+          "https_default_port": "8182",                                                                    
+          "regex": "^(\\d+)$",                                                                             
+          "site": "janusgraph-config-env"                                                                        
+        }                                                                                                  
+      }                                                                                                    
+    ]                                                                                                      
+  }                                                                                                        
+}                         

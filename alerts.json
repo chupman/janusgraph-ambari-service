@@ -1,0 +1,33 @@
+ {
+  "JANUSGRAPH": {
+    "JANUSGRAPH_SERVER": [
+      {
+        "name": "janusgraph",
+        "label": "janusgraph server",
+        "description": "This host-level alert is triggered if the JanusGraph Server Instance is unreachable.",
+        "interval": 1,
+        "scope": "ANY",
+        "source": {
+          "type": "SCRIPT",
+	  "path": "JANUSGRAPH/package/alerts/alert_check_janusgraph_server.py",
+	  "parameters": [
+            {
+              "name": "janusgraph.run.dir",
+              "display_name": "Run Directory",
+              "value": "/var/run/janusgraph",
+              "type": "STRING",
+              "description": "The directory where the JanusGraph server process places its PID files."
+            },
+	    {
+              "name": "janusgraph.user",
+              "display_name": "Janusgraph User",
+              "value": "janusgraph",
+              "type": "STRING",
+              "description": "User who starts the JanusGraph Server process"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
