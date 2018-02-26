@@ -28,7 +28,7 @@ def janusgraph_service(action='start'):
   import params
   import params_server
   cmd = format("{janusgraph_bin_dir}/gremlin-server-script.sh")
-  cmd_params = params_server.janusgraph_pid_file + " " + params.janusgraph_log_file +" " + params.janusgraph_err_file + " " +  params.janusgraph_bin_dir + " " + params.janusgraph_server_conf_dir 
+  cmd_params = params_server.janusgraph_pid_file + " " + params.janusgraph_log_file +" " + params.janusgraph_err_file + " " +  params.janusgraph_bin_dir + " " + params.janusgraph_server_conf_dir
   if action == 'start':
     if params.security_enabled:
       kinit_cmd = format("{kinit_path_local} -kt {janusgraph_keytab_path} {janusgraph_jaas_princ};")

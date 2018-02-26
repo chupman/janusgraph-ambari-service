@@ -71,8 +71,8 @@ def janusgraph(type = None, upgrade_type=None):
                   )
         File(format("{params.janusgraph_bin_dir}/gremlin-server-script.sh"),
              mode=0755,
-             group='root',
-             owner='root',
+             owner=params.janusgraph_user,
+             group=params.user_group,
              content = StaticFile("gremlin-server-script.sh")
              )
 
