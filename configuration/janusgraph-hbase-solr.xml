@@ -34,10 +34,10 @@
 # connects to Solr running on localhost using Solr's HTTP API.
 # Zookeeper, the HBase services, and Solr must already be
 # running and available before starting JanusGraph with this file.
-gremlin.graph=com.thinkaurelius.titan.core.JanusGraphFactory
+gremlin.graph=org.janusgraph.core.JanusGraphFactory
 storage.backend=hbase
 storage.hostname={{storage_host}}
-storage.hbase.table=titan_solr
+storage.hbase.table=janusgraph_solr
 storage.hbase.ext.zookeeper.znode.parent={{hbase_zookeeper_parent}}
 
 cache.db-cache = true
@@ -56,9 +56,12 @@ cache.db-cache-size = 0.5
 # implementation.
 
 index.search.backend=solr
-index.search.solr.mode=cloud
-index.search.solr.zookeeper-url={{zookeeper_solr_for_titan_hostname}}
-index.search.solr.configset=titan
+index.search.solr.mode=http
+# TODO hardcoding url for, needs to be grebbed from zookeeper longterm
+index.search.solr.http-urls=http://localhost:8983/solr
+# index.search.solr.mode=cloud
+# index.search.solr.zookeeper-url={{zookeeper_solr_for_janusgraph_hostname}}
+# index.search.solr.configset=janusgraph
 {{titan_solr_client_jaas_config}}
     </value>
     <value-attributes>
