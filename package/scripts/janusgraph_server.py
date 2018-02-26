@@ -48,7 +48,7 @@ class JanusGraphServer(Script):
     )
     # Download Janusgraph zip, if no cached package exists on Ambari server node
     if not os.path.exists(params.janusgraph_zip):
-        Execute('wget ' + params.janusgraph_download_url + ' -O ' + params.janusgraph_zip + ' -nv -a '  + params.janusgraph_log_file, user=params.janusgraph_user)
+        Execute('wget ' + params.janusgraph_download_url + ' -O ' + params.janusgraph_zip + ' -a '  + params.janusgraph_log_file, user=params.janusgraph_user)
         Execute('unzip ' + params.janusgraph_zip + ' -d ' + params.janusgraph_install_dir + ' >> ' + params.janusgraph_log_file, user=params.janusgraph_user)
         Execute('mv ' + params.janusgraph_install_dir + '/janusgraph-*/* ' + params.janusgraph_install_dir, user=params.janusgraph_user)
         Execute('rmdir ' + params.janusgraph_install_dir + '/janusgraph-*')
