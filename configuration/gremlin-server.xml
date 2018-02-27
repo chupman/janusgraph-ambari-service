@@ -29,7 +29,8 @@ host: {{janusgraph_host}}
 port: {{janusgraph_server_port}}
 scriptEvaluationTimeout: 300000
 serializedResponseTimeout: 300000
-channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
+<!-- channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer -->
+channelizer: org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer
 graphs: {
   graph: conf/janusgraph-hbase-solr.properties,
   graphSpark: conf/hadoop-graph/hadoop-gryo.properties}
