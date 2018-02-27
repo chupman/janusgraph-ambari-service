@@ -66,6 +66,7 @@ class JanusGraphServiceCheckDefault(JanusGraphServiceCheck):
         janusgraph_server_host = http + format("{janusgraph_host}")
         janusgraph_port=format("{janusgraph_server_port}")
         cmd = "curl " + secure + headers + janusgraph_server_host + ":" + janusgraph_port + grepresult
+	gremlin_bin = params.janusgraph_bin_dir + "/gremlin.sh"
 
         Execute((cmd),
                 tries     = 40,
@@ -75,7 +76,7 @@ class JanusGraphServiceCheckDefault(JanusGraphServiceCheck):
                 logoutput = True
                 )
 
-        Execute(format("gremlin {tmp_dir}/janusgraphSmoke.groovy"),
+        Execute(format("{gremlin_bin} {tmp_dir}/janusgraphSmoke.groovy"),
                 tries     = 3,
                 try_sleep = 5,
                 path      = format('{janusgraph_bin_dir}:/usr/sbin:/sbin:/usr/local/bin:/bin:/usr/bin'),
