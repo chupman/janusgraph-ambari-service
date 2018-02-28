@@ -56,13 +56,12 @@ cache.db-cache-size = 0.5
 # implementation.
 
 index.search.backend=solr
-index.search.solr.mode=http
-# TODO hardcoding url for, needs to be grebbed from zookeeper longterm
-index.search.solr.http-urls=http://localhost:8983/solr
-# index.search.solr.mode=cloud
-# index.search.solr.zookeeper-url={{zookeeper_solr_for_janusgraph_hostname}}
-# index.search.solr.configset=janusgraph
-{{titan_solr_client_jaas_config}}
+# index.search.solr.mode=http
+index.search.solr.http-urls={{solr_server_urls}}
+index.search.solr.mode=cloud
+index.search.solr.zookeeper-url={{zookeeper_solr_for_janusgraph_hostname}}
+index.search.solr.configset=janusgraph
+{{janusgraph_solr_client_jaas_config}}
     </value>
     <value-attributes>
       <show-property-name>false</show-property-name>

@@ -160,7 +160,7 @@ for host in config['clusterHostInfo']['zookeeper_hosts']:
   if index < len(config['clusterHostInfo']['zookeeper_hosts']):
     zookeeper_quorum += ","
 if "solr-config-env" in config['configurations']:
-    solr_znode = default('/configurations/solr-env/solr_znode', '/solr')
+    solr_znode = default('/configurations/solr-config-env/solr_znode', '/solr')
 infra_solr_hosts = default("/clusterHostInfo/infra_solr_hosts", [])
 infra_solr_replication_factor = 2 if len(infra_solr_hosts) > 1 else 1
 janusgraph_solr_shards = 1
@@ -175,8 +175,8 @@ janusgraph_hdfs_mode = 0775
 solr_conf_dir=format('{stack_root}/current/solr-server/conf')
 janusgraph_solr_configset = 'janusgraph'
 janusgraph_solr_collection_name = 'janusgraph'
-solr_port=config['configurations']['solr-env']['solr_port']
-solr_user= solr_user=config['configurations']['solr-env']['solr_user']
+#solr_port=config['configurations']['solr-config-env']['solr_port']
+#solr_user= solr_user=config['configurations']['solr-config-env']['solr_user']
 solr_conf_trg_file = format('{stack_root}/current/solr-server/server/solr/configsets/{janusgraph_solr_configset}/conf/solrconfig.xml')
 #for create_hdfs_directory
 security_enabled = config['configurations']['cluster-env']['security_enabled']
@@ -192,6 +192,19 @@ default_fs = config['configurations']['core-site']['fs.defaultFS']
 janusgraph_download_url = config['configurations']['janusgraph-env']['janusgraph_download_url']
 janusgraph_zip = '/tmp/janusgraph.zip'
 janusgraph_install_dir = config['configurations']['janusgraph-env']['janusgraph_install_dir']
+solr_cloud_enabled = config['configurations']['solr_cloud_enable']
+solr_cloud_zk_directory = config['configurations']['solr_cloud_zk_directory']
+solr_port = config['configurations']['solr-config-env']['solr_config_port']
+solr_user= config['configurations']['solr-config-env']['solr_config_user']
+solr_ssl = config['configurations']['solr-ssl']['solr_ssl_enable']
+solr_server_hosts = config['clusterHostInfo']['solr_server_hosts']
+solr_server_list = []
+solr_server_list2 = []
+solr_http = 'https' if solr_ssl else 'http'
+
+for solr_host in solr_server_hosts:
+  solr_server_list.append(format("{solr_http}://{solr_host}:{solr_port}/solr"))
+solr_server_urls = ",".join(solr_server_list)
 
 import functools
 #to create hdfs directory we need to call params.HdfsResource in code
