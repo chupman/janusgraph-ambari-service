@@ -33,7 +33,6 @@ class JanusGraphServer(Script):
   def install(self, env):
     import params
     env.set_params(params)
-    # TODO add the rest of the installer
 
     Directory([params.janusgraph_log_dir, params.janusgraph_install_dir],
             owner=params.janusgraph_user,
@@ -60,14 +59,12 @@ class JanusGraphServer(Script):
   def get_component_name(self):
     return "janusgraph-server"
 
-#  def install(self, env):
-#    self.install_packages(env)
-
   def configure(self, env, upgrade_type=None):
     import params
     env.set_params(params)
     janusgraph.janusgraph(type='server', upgrade_type=upgrade_type)
 
+# Upgrade function not currently supported
 #  def pre_upgrade_restart(self, env, upgrade_type=None):
 #    Logger.info("Executing Stack Upgrade pre-restart")
 #    import params
