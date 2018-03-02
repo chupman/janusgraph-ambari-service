@@ -106,7 +106,6 @@ def janusgraph_service(action='start'):
               mode=0644
               )
 
-# TODO integreate with zookeeper
 #    #create jaas file for solr when security enabled
 #    jaas_file = format('{janusgraph_solr_jaas_file}')
 #    if not os.path.isfile(jaas_file) and params.security_enabled:
