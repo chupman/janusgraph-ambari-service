@@ -23,8 +23,7 @@ from resource_management.libraries.functions import format
 RESULT_CODE_OK = 'OK'
 RESULT_CODE_CRITICAL = 'CRITICAL'
 RESULT_CODE_UNKNOWN = 'UNKNOWN'
-# STACK_ROOT = '{{cluster-env/stack_root}}'
-STACK_ROOT = '/opt/janusgraph'
+STACK_ROOT = 'janusgraph.install.dir'
 JANUSGRAPH_RUN_DIR = 'janusgraph.run.dir'
 JANUSGRAPH_USER = 'janusgraph.user'
 @OsFamilyFuncImpl(os_family=OsFamilyImpl.DEFAULT)
@@ -37,12 +36,8 @@ def execute(configurations={}, parameters={}, host_name=None):
   parameters (dictionary): a mapping of script parameter key to value
   host_name (string): the name of this host where the alert is running
   """
-  # TODO properly pull the install directory / set the stack root
-#  janusgraph_bin_dir = configurations[STACK_ROOT] + format("/current/janusgraph-server/bin")
-  janusgraph_bin_dir = "/opt/janusgraph/bin"
-
+  janusgraph_bin_dir = configurations[STACK_ROOT] + format("/bin")
   gremlin_server_script_path = janusgraph_bin_dir + format("/gremlin-server-script.sh")
-
   janusgraph_pid_file = parameters[JANUSGRAPH_RUN_DIR] + format("/janusgraph.pid")
   janusgraph_user = parameters[JANUSGRAPH_USER]
   (code, msg) = get_check_result(gremlin_server_script_path, janusgraph_pid_file, janusgraph_user)
