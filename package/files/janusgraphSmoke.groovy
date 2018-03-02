@@ -16,6 +16,6 @@
 import org.janusgraph.core.JanusGraphFactory
 
 
-graph = JanusGraphFactory.open("/etc/janusgraph/conf/janusgraph-hbase-solr.properties")
+graph = JanusGraphFactory.open("/opt/janusgraph/conf/janusgraph-hbase-solr.properties")
 g = graph.traversal()
 l = g.V().values('name').toList()
