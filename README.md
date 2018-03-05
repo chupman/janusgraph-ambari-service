@@ -6,7 +6,7 @@ Instructions on how to add JanusGraph to Apache Ambari or Hortonworks Data Platf
 
 - To download the service and link it to Ambari run the following commands
 ```
-VERSION=`hdp-select versions | cut -d'.' -f1,2`
+VERSION=`hdp-select versions | head -n1 | cut -d'.' -f1,2`
 git clone https://github.com/chupman/janusgraph-ambari-service.git /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/JANUSGRAPH
 ```
 
