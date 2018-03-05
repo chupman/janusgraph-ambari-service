@@ -74,7 +74,7 @@ janusgraph_env_props = config['configurations']['janusgraph-env']['content']
 log4j_console_props = config['configurations']['janusgraph-log4j']['content']
 
 # JanusGraph server configurations
-janusgraph_server_conf_dir = "/etc/janusgraph/conf/gremlin-server"
+janusgraph_server_conf_dir = config['configurations']['janusgraph-env']['janusgraph_install_dir'] + "/conf/gremlin-server"
 gremlin_server_configs = config['configurations']['gremlin-server']['content']
 
 janusgraph_server_sasl= str(config['configurations']['janusgraph-env']['SimpleAuthenticator']).lower()
