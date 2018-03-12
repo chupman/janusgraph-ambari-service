@@ -106,36 +106,36 @@ def janusgraph_service(action='start'):
               mode=0644
               )
 
-#    #create jaas file for solr when security enabled
-#    jaas_file = format('{janusgraph_solr_jaas_file}')
-#    if not os.path.isfile(jaas_file) and params.security_enabled:
-#      File(jaas_file,
-#           owner   = params.janusgraph_user,
-#           group   = params.user_group,
-#           mode    = 0644,
-#           content = Template('janusgraph_solr_jaas.conf.j2')
-#           )
-#    #upload config to zookeeper
-#    solr_cloud_util.upload_configuration_to_zk(
-#        zookeeper_quorum = params.zookeeper_quorum,
-#        solr_znode = params.solr_znode,
-#        config_set = params.janusgraph_solr_configset,
-#        config_set_dir = params.janusgraph_solr_conf_dir,
-#        tmp_dir = params.tmp_dir,
-#        java64_home = params.java64_home,
-#        jaas_file=jaas_file,
-#        retry=30, interval=5)
-#
-#    #create solr collection
-#    solr_cloud_util.create_collection(
-#        zookeeper_quorum = params.zookeeper_quorum,
-#        solr_znode = params.solr_znode,
-#        collection = params.janusgraph_solr_collection_name,
-#        config_set = params.janusgraph_solr_configset,
-#        java64_home = params.java64_home,
-#        shards = params.janusgraph_solr_shards,
-#        replication_factor = int(params.infra_solr_replication_factor),
-#        jaas_file = jaas_file)
+    #create jaas file for solr when security enabled
+    jaas_file = format('{janusgraph_solr_jaas_file}')
+    if not os.path.isfile(jaas_file) and params.security_enabled:
+      File(jaas_file,
+           owner   = params.janusgraph_user,
+           group   = params.user_group,
+           mode    = 0644,
+           content = Template('janusgraph_solr_jaas.conf.j2')
+           )
+    #upload config to zookeeper
+    solr_cloud_util.upload_configuration_to_zk(
+        zookeeper_quorum = params.zookeeper_quorum,
+        solr_znode = params.solr_znode,
+        config_set = params.janusgraph_solr_configset,
+        config_set_dir = params.janusgraph_solr_conf_dir,
+        tmp_dir = params.tmp_dir,
+        java64_home = params.java64_home,
+        jaas_file=jaas_file,
+        retry=30, interval=5)
+
+    #create solr collection
+    solr_cloud_util.create_collection(
+        zookeeper_quorum = params.zookeeper_quorum,
+        solr_znode = params.solr_znode,
+        collection = params.janusgraph_solr_collection_name,
+        config_set = params.janusgraph_solr_configset,
+        java64_home = params.java64_home,
+        shards = params.janusgraph_solr_shards,
+        replication_factor = int(params.infra_solr_replication_factor),
+        jaas_file = jaas_file)
 
     daemon_cmd = format(cmd+" start " + cmd_params)
     no_op_test = format("ls {params_server.janusgraph_pid_file} >/dev/null 2>&1 && ps `cat {params_server.janusgraph_pid_file}` >/dev/null 2>&1")

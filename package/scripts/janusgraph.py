@@ -88,15 +88,15 @@ def janusgraph(type = None, upgrade_type=None):
              owner=params.janusgraph_user,
              content=InlineTemplate(params.janusgraph_env_props)
              )
-#    jaas_client_file = format('{janusgraph_solr_client_jaas_file}')
-#
-#    if not os.path.isfile(jaas_client_file) and params.security_enabled:
-#        File(jaas_client_file,
-#             owner   = params.janusgraph_user,
-#             group   = params.user_group,
-#             mode    = 0644,
-#             content = Template('janusgraph_solr_client_jaas.conf.j2')
-#             )
+    jaas_client_file = format('{janusgraph_solr_client_jaas_file}')
+
+    if not os.path.isfile(jaas_client_file) and params.security_enabled:
+        File(jaas_client_file,
+             owner   = params.janusgraph_user,
+             group   = params.user_group,
+             mode    = 0644,
+             content = Template('janusgraph_solr_client_jaas.conf.j2')
+             )
 
 # SparkGraphComputer
     Directory(params.janusgraph_conf_hadoop_graph_dir,
