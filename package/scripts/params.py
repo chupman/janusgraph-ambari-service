@@ -175,8 +175,6 @@ janusgraph_hdfs_mode = 0775
 solr_conf_dir=format('{stack_root}/current/solr-server/conf')
 janusgraph_solr_configset = 'janusgraph'
 janusgraph_solr_collection_name = 'janusgraph'
-#solr_port=config['configurations']['solr-config-env']['solr_port']
-#solr_user= solr_user=config['configurations']['solr-config-env']['solr_user']
 solr_conf_trg_file = format('{stack_root}/current/solr-server/server/solr/configsets/{janusgraph_solr_configset}/conf/solrconfig.xml')
 #for create_hdfs_directory
 security_enabled = config['configurations']['cluster-env']['security_enabled']
