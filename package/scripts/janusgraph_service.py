@@ -60,40 +60,40 @@ def janusgraph_service(action='start'):
             not_if = janusgraph_ext_spark_plugin_dir_exist_command,
             logoutput=True,user=params.janusgraph_user)
 
-#    #get spark arhive from hdfs
-#    janusgraph_get_spark_tar_command = format("hadoop fs -get {janusgraph_spark2_archive_dir}/{janusgraph_spark2_archive_file} {janusgraph_ext_spark_plugin_dir}")
-#    janusgraph_sparktargz_exist_command= format("ls {janusgraph_ext_spark_plugin_dir}/{janusgraph_spark2_archive_file}>/dev/null 2>&1")
-#    Execute(janusgraph_get_spark_tar_command,
-#            not_if = janusgraph_sparktargz_exist_command,
-#            logoutput=True,user=params.janusgraph_user)
+    #get spark arhive from hdfs
+    janusgraph_get_spark_tar_command = format("hadoop fs -get {janusgraph_spark2_archive_dir}/{janusgraph_spark2_archive_file} {janusgraph_ext_spark_plugin_dir}")
+    janusgraph_sparktargz_exist_command= format("ls {janusgraph_ext_spark_plugin_dir}/{janusgraph_spark2_archive_file}>/dev/null 2>&1")
+    Execute(janusgraph_get_spark_tar_command,
+            not_if = janusgraph_sparktargz_exist_command,
+            logoutput=True,user=params.janusgraph_user)
 
-#    #extract spark targz
-#    janusgraph_x_spark_targz_command = format("tar -xzvf {janusgraph_ext_spark_plugin_dir}/{janusgraph_spark2_archive_file} -C {janusgraph_ext_spark_plugin_dir}/>/dev/null 2>&1")
-#    janusgraph_sparkjars_exist_command= format("ls {janusgraph_ext_spark_plugin_dir}/*.jar>/dev/null 2>&1")
-#    Execute(janusgraph_x_spark_targz_command,
-#            not_if = janusgraph_sparkjars_exist_command,
-#            logoutput=True,user=params.janusgraph_user)
+    #extract spark targz
+    janusgraph_x_spark_targz_command = format("tar -xzvf {janusgraph_ext_spark_plugin_dir}/{janusgraph_spark2_archive_file} -C {janusgraph_ext_spark_plugin_dir}/>/dev/null 2>&1")
+    janusgraph_sparkjars_exist_command= format("ls {janusgraph_ext_spark_plugin_dir}/*.jar>/dev/null 2>&1")
+    Execute(janusgraph_x_spark_targz_command,
+            not_if = janusgraph_sparkjars_exist_command,
+            logoutput=True,user=params.janusgraph_user)
 
-#    #create hdfs dir /user/spark/share/lib/spark
-#    janusgraph_create_spark_dir_command = format("hadoop fs -mkdir -p {janusgraph_hdfs_spark_lib_dir}")
-#    janusgraph_spark_exist_command = format("hadoop fs -test -e {janusgraph_hdfs_spark_lib_dir}>/dev/null 2>&1")
-#    Execute(janusgraph_create_spark_dir_command,
-#            not_if = janusgraph_spark_exist_command,
-#            logoutput=True,user=params.hdfs_user)
+    #create hdfs dir /user/spark/share/lib/spark
+    janusgraph_create_spark_dir_command = format("hadoop fs -mkdir -p {janusgraph_hdfs_spark_lib_dir}")
+    janusgraph_spark_exist_command = format("hadoop fs -test -e {janusgraph_hdfs_spark_lib_dir}>/dev/null 2>&1")
+    Execute(janusgraph_create_spark_dir_command,
+            not_if = janusgraph_spark_exist_command,
+            logoutput=True,user=params.hdfs_user)
 
-#    #upload spark jars to hdfs /user/spark/share/lib/spark
-#    janusgraph_put_spark_jar_command = format("hadoop fs -put -f {janusgraph_ext_spark_plugin_dir}/* {janusgraph_hdfs_spark_lib_dir}; hadoop fs -rm -r {janusgraph_hdfs_spark_lib_dir}/guava*.jar; hadoop fs -put -f {janusgraph_home_dir}/lib/guava*.jar {janusgraph_hdfs_spark_lib_dir}")
-#    janusgraph_sparkjar_exist_command = format("hadoop fs -test -e {janusgraph_hdfs_spark_lib_dir}/*.jar>/dev/null 2>&1")
-#    Execute(janusgraph_put_spark_jar_command,
-#            not_if = janusgraph_sparkjar_exist_command,
-#            logoutput=True,user=params.hdfs_user)
+    #upload spark jars to hdfs /user/spark/share/lib/spark
+    janusgraph_put_spark_jar_command = format("hadoop fs -put -f {janusgraph_ext_spark_plugin_dir}/* {janusgraph_hdfs_spark_lib_dir}; hadoop fs -rm -r {janusgraph_hdfs_spark_lib_dir}/guava*.jar; hadoop fs -put -f {janusgraph_home_dir}/lib/guava*.jar {janusgraph_hdfs_spark_lib_dir}")
+    janusgraph_sparkjar_exist_command = format("hadoop fs -test -e {janusgraph_hdfs_spark_lib_dir}/*.jar>/dev/null 2>&1")
+    Execute(janusgraph_put_spark_jar_command,
+            not_if = janusgraph_sparkjar_exist_command,
+            logoutput=True,user=params.hdfs_user)
 
-#    #rm guava*.jar slf4j-log4j12*.jar spark-core*.jar for conflict
-#    janusgraph_rm_conflict_jars_command = format("rm -rf {janusgraph_ext_spark_plugin_dir}/guava*.jar; rm -rf {janusgraph_ext_spark_plugin_dir}/slf4j-log4j12*.jar; rm -rf {janusgraph_ext_spark_plugin_dir}/spark-core*.jar; ")
-#    janusgraph_guava_exist_command = format("ls {janusgraph_ext_spark_plugin_dir}/guava*.jar>/dev/null 2>&1")
-#    Execute(janusgraph_rm_conflict_jars_command,
-#            only_if = janusgraph_guava_exist_command,
-#            logoutput=True,user=params.janusgraph_user)
+    #rm guava*.jar slf4j-log4j12*.jar spark-core*.jar for conflict
+    janusgraph_rm_conflict_jars_command = format("rm -rf {janusgraph_ext_spark_plugin_dir}/guava*.jar; rm -rf {janusgraph_ext_spark_plugin_dir}/slf4j-log4j12*.jar; rm -rf {janusgraph_ext_spark_plugin_dir}/spark-core*.jar; ")
+    janusgraph_guava_exist_command = format("ls {janusgraph_ext_spark_plugin_dir}/guava*.jar>/dev/null 2>&1")
+    Execute(janusgraph_rm_conflict_jars_command,
+            only_if = janusgraph_guava_exist_command,
+            logoutput=True,user=params.janusgraph_user)
 
     #generate yarn-site.xml in JanusGraph conf if no yarn-client installed
     XmlConfig("yarn-site.xml",

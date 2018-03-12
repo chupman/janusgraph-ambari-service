@@ -38,7 +38,7 @@ stack_name = default("/hostLevelParams/stack_name", None)
 stack_version_unformatted = str(config['hostLevelParams']['stack_version'])
 stack_version_formatted = format_stack_version(stack_version_unformatted)
 major_stack_version = get_major_version(stack_version_formatted)
-#full_stack_version = get_stack_version('janusgraph-client')
+full_stack_version = get_stack_version('spark2-client')
 
 # New Cluster Stack Version that is defined during the RESTART of a Rolling Upgrade
 version = default("/commandParams/version", None)
@@ -116,9 +116,6 @@ hadoop_hbase_read_props = config['configurations']['hadoop-hbase-read']['content
 janusgraph_hdfs_data_dir = "/user/janusgraph/data"
 janusgraph_hdfs_spark_lib_dir = "/user/spark/share/lib/spark"
 janusgraph_ext_spark_plugin_dir = config['configurations']['janusgraph-env']['janusgraph_install_dir'] + '/ext/spark-client/plugin'
-platform_name = format('{stack_root}').split('/')[2]
-#janusgraph_spark2_archive_dir = format('/{platform_name}/apps/{full_stack_version}/spark2')
-#janusgraph_spark2_archive_file = format('spark2-{platform_name}-yarn-archive.tar.gz')
 local_components = default("/localComponents", [])
 yarn_client_installed = ( 'YARN_CLIENT' in local_components)
 hbase_master_installed = ( 'HBASE_CLIENT' in local_components)
@@ -203,6 +200,10 @@ solr_http = 'https' if solr_ssl else 'http'
 for solr_host in solr_server_hosts:
   solr_server_list.append(format("{solr_http}://{solr_host}:{solr_port}/solr"))
 solr_server_urls = ",".join(solr_server_list)
+
+platform_name = format('{stack_root}').split('/')[2]
+janusgraph_spark2_archive_dir = format('/{platform_name}/apps/{full_stack_version}/spark2')
+janusgraph_spark2_archive_file = format('spark2-{platform_name}-yarn-archive.tar.gz')
 
 import functools
 #to create hdfs directory we need to call params.HdfsResource in code

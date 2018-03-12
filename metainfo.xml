@@ -107,7 +107,7 @@
         <service>HDFS</service>
         <service>HBASE</service>
         <service>SOLR</service>
-<!--        <service>SPARK2</service> -->
+        <service>SPARK2</service>
       </requiredServices>
       
       <configuration-dependencies>
